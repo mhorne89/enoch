@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <style>
+      body {
+        font-family: Helvetica, sans-serif;
+        background: #f7f7f7;
+        font-weight: 100;
+        font-size: 14px;
+      }
+
+      .outer-container {
+        max-width: 60em;
+        margin: 0 auto;
+      }
+
+      .box {
+        box-shadow: 0 2px 4px rgba(50, 50, 50, 0.1), 0 3px 6px rgba(100, 100, 100, 0.2);
+        margin-bottom: .5em;
+        border-radius: 3px;
+      }
+
+      .header {
+        background: #454545;
+        padding: .7em 1em;
+        border-radius: 3px;
+        color: #f7f7f7;
+        cursor: pointer;
+      }
+
+      .body {
+        padding: 0 1em;
+        max-height: 0;
+        overflow: hidden;
+        transition: all .5s ease-in-out;
+        background: #fafafa;
+      }
+
+      .open + .body {
+        padding: 0 1em 1em;
+        max-height: 40em;
+        overflow: scroll;
+        transition: all .5s ease-in-out;
+      }
+
+      .arrow {
+        transform: rotate(0deg);
+        transition: all .3s ease-in-out;
+        float: right;
+        margin-left: 1em;
+      }
+
+      .open .arrow {
+        transform: rotate(180deg);
+        transition: all .3s ease-in-out;
+      }
+
+      .method {
+        display: inline-block;
+        padding: .2em .4em .15em .3em;
+        background: green;
+        border-radius: 3px;
+        color: #f7f7f7;
+        font-size: .8em;
+        margin-right: 1em;
+        vertical-align: middle;
+      }
+
+      .req-route {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .time {
+        display: inline-block;
+        vertical-align: middle;
+        float: right;
+        font-size: .8em;
+        margin-top: .2em;
+      }
+
+      .code-block {
+        background: #fff3c2;
+        padding: 1em;
+        border-radius: 5px;
+        margin-top: 1em;
+      }
+
+      h2 {
+        font-size: 1em;
+        margin: 0 0 1em;
+      }
+    </style>
+
+    <title>Enoch</title>
+  </head>
+  <body>
+    <div class="outer-container">
+      <h1>Web API</h1>
+
+      {{#each logs}}
+      <div class="box">
+        <div class="header">
+          <div class="method">{{request_method}}{{#if response_status}}: {{response_status}}{{/if}}</div>
+          <div class="req-route">{{request_url}}{{api_endpoint}}</div>
+          <div class="arrow">&dtrif;</div>
+          <div class="time">{{time timestamp}}</div>
+        </div>
+
+        <div class="body">
+          {{#if request_headers}}
+          <div class="code-block">
+            <h2>Request Headers</h2>
+            <code>
+              {{#each request_headers}}
+              {{@key}}: {{this}}<br>
+              {{/each}}
+            </code>
+          </div>
+          {{/if}}
+
+          {{#if request_body}}
+          <div class="code-block">
+            <h2>Request Body</h2>
+            <code>
+              {{#each request_body}}
+              {{@key}}: {{stringify this}}<br>
+              {{/each}}
+            </code>
+          </div>
+          {{/if}}
+
+          {{#if response_body}}
+          <div class="code-block">
+            <h2>Response Body</h2>
+            <code>
+              {{#each response_body}}
+              {{@key}}: {{this}}<br>
+              {{/each}}
+            </code>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </body>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+
+  <script>    
+    $('.header').click(function() {
+      $(this).toggleClass('open');
+    });
+  </script>
+</html>
