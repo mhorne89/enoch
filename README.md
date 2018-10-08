@@ -1,3 +1,5 @@
+[![Node version](https://img.shields.io/node/v/enoch.svg?style=flat)](http://nodejs.org/download/)
+
 # Enoch - An Express Middleware to log API requests
 
 ## Instalation
