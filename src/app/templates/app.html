@@ -1,0 +1,17 @@
+<div id="app">
+  <conichi-sidebar>
+    <conichi-sidebar-menu>
+      <div class="menu-heading">
+        <img src="/assets/svgs/eye.svg">
+        <h2>Enoch</h2>
+      </div>
+
+      <conichi-sidebar-header>Dashboard</conichi-sidebar-header>
+      <a routerLink="/enoch/overview">Overview</a>
+    </conichi-sidebar-menu>
+  </conichi-sidebar>
+
+  <conichi-sidebar-content>
+    <router-outlet autoscroll="false"></router-outlet>
+  </conichi-sidebar-content>
+</div>

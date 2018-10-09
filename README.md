@@ -55,7 +55,7 @@ So in the above example, this will start a cron job to run every day at midnight
 
 ### Serve UI
 
-Enoch has a basic UI which will create a route named `/logs` which you can navigate to to view your API logs. Add this route to your applcication by including the following line in your Node applicaiton.
+Enoch has a basic UI which will create a route named `/enoch-logs` to be used by the application to fetch the logs. It also creates a subdiretory named `/enoch` which you can navigate to to view your API logs. Add these routes to your applcication by including the following line in your Node applicaiton.
 
 ```
 enoch.serve(app);
@@ -64,4 +64,4 @@ enoch.serve(app);
 
 ## Run in dev mode
 
-To run in dev mode simply clone the repo, navigate to the directory and run `npm run dev`. You will need to supply some sample logs in the `/logs` directory. This will run Enoch, including the UI, on your local machine at `localhost:8085`.
+To run in dev mode simply clone the repo, navigate to the directory and run `npm run dev` which will allow you to edit the UI directly with the Angular CLI on port 4000. You can also run `npm run prod` to serve the UI from the Node.js server. This will run Enoch, including the UI, on your local machine at `localhost:8085`. You will need to supply some sample logs in the `/logs` directory.

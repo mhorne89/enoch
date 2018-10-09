@@ -3,15 +3,28 @@
 const fs = require('fs');
 const moment = require('moment');
 const cron = require('node-cron');
-const exphbs = require('express-handlebars');
 const path = require('path');
+const express = require('express');
 
 
 /****************************************************************************
 * Function init()
-* This function should be called to ensure that a /logs directory exists.
+* This function should be called to ensure that a /logs directory exists and
+* load the logs into the global memory.
 *****************************************************************************/
-function init() { fs.access('./logs', (err) => (err) ? fs.mkdirSync('./logs') : null); }
+function init() {
+  fs.access('./logs', (err) => (err) ? fs.mkdirSync('./logs') : null);
+  
+  if (!global.enoch_logs) {
+    global.enoch_logs = [];
+
+    fs.readdir('./logs/', (err, files) => {
+      files.forEach(file => {
+        fs.readFile(`./logs/${ file }`, 'utf-8', (err, log) => global.enoch_logs.push(JSON.parse(log)));
+      });
+    });
+  }
+}
 
 
 /****************************************************************************
@@ -32,6 +45,8 @@ function store(req, res, next) {
     response_status: res.status,
     timestamp: moment().format('x')
   };
+  
+  global.enoch_logs.push(log);
 
   fs.writeFile(`./logs/${ moment().format('x') }.json`, JSON.stringify(log), (err) => (err) ? console.log(err) : next());
 }
@@ -64,30 +79,19 @@ function clean(cron_schedule, removal_time_in_days) {
 
 /****************************************************************************
 * Function serve()
-* This function will add a route to your Express application /logs so you can
+* This function will add a route to your Express application /enoch-logs
+* which is used by the applciation to retrieve the logs from the Node.js layer.
+* It also serves the application under the /enoch/.. sub directory so you can
 * view a UI that displays all your API logs.
 *****************************************************************************/
 function serve(app) {
-  const logs = [];
-
-  fs.readdir('./logs/', (err, files) => {
-    files.forEach(file => {
-      fs.readFile(`./logs/${ file }`, 'utf-8', (err, log) => logs.push(JSON.parse(log)));
-    });
+  app.get('/enoch-logs', (req, res) => {
+    res.status(200).send(global.enoch_logs);
   });
-
-  app.set('views', path.join(__dirname, '/views'));
-  app.engine('.hbs', exphbs({ extname: '.hbs' }));
-  app.set('view engine', '.hbs');
-
-  app.get('/logs', (req, res) => {
-    res.render('index', {
-      logs: logs,
-      helpers: {
-        stringify: (object) => JSON.stringify(object),
-        time: (timestamp) => moment.unix(timestamp / 1000).format('D MMM YY HH:mm:ss')
-      }
-    });
+  
+  app.get(['/enoch', '/enoch/**'], (req, res) => {
+    app.use(express.static(__dirname + '/dist'));
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
 }
 
