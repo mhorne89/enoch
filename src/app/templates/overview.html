@@ -1,0 +1,51 @@
+<div id="overview">
+  <div class="screen-container">
+    <h1>Overview</h1>
+
+    <div class="list-container">
+      <parabol-pending [pending]="!logs"></parabol-pending>
+
+      <div class="box" *ngFor="let log of logs | orderBy: '-timestamp' | filterBy: ['api_endpoint', 'request_method', 'response_status']: filter">
+        <div class="header" (click)="showBody($event)">
+          <div class="method">{{ log?.request_method }} <span *ngIf="log?.response_status">{{ log?.response_status }}</span></div>
+          <div class="req-route">{{ log?.request_url }}{{ log?.api_endpoint }}</div>
+          <div class="arrow">&#x025BE;</div>
+          <div class="time">{{ log?.timestamp | date: 'medium' }}</div>
+        </div>
+
+        <div class="body">
+          <div class="code-block" *ngIf="log?.request_headers">
+            <h2>Request Headers</h2>
+            <code>
+              <pre>{{ log?.request_headers | json }}</pre>
+            </code>
+          </div>
+
+          <div class="code-block" *ngIf="log?.request_body">
+            <h2>Request Body</h2>
+            <code>
+              <pre>{{ log?.request_body | json }}</pre>
+            </code>
+          </div>
+
+          <div class="code-block" *ngIf="log?.response_body">
+            <h2>Response Body</h2>
+            <code>
+              <pre>{{ log?.response_body | json }}</pre>
+            </code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-container">
+      <h3>Filters</h3>
+
+      <parabol-text placeholder="Search" [(model)]="filter" (keyup)="filterList(filter)"></parabol-text>
+      <!--<parabol-datepicker placeholder="From" time="true" [(model)]="date_from"></parabol-datepicker>
+<parabol-datepicker placeholder="To" time="true" [(model)]="date_to"></parabol-datepicker>-->
+
+      <!--<a class="button outline" (click)="filter = null">Clear</a>-->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+[submodule "src/assets/sass/global-stylesheets"]
+	path = src/assets/sass/global-stylesheets
+	url = git@github.com:parabol-studio/global-stylesheets.git

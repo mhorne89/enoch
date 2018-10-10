@@ -1,0 +1,33 @@
+#app {
+  parabol-sidebar {
+    .menu-heading {
+      text-align: center;
+      margin: 4em 0 2em;
+
+      img {
+        width: 2.7em;
+        height: 2.7em;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+      }
+
+      h2 {
+        font-size: 2em;
+        color: white;
+        font-weight: 100;
+        font-family: 'serif';
+        text-transform: uppercase;
+        margin: 0;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+  
+  parabol-sidebar-content {
+    position: fixed;
+    bottom: 0;
+    overflow-y: scroll;
+  }
+}

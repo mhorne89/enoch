@@ -1,0 +1,107 @@
+#overview {
+  h1 { margin-bottom: 2em }
+  
+  .list-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 65%;
+    margin-right: 5%;
+
+    .box {
+      box-shadow: 0 2px 4px rgba(50, 50, 50, 0.1), 0 3px 6px rgba(100, 100, 100, 0.2);
+      margin-bottom: .5em;
+      border-radius: 3px;
+    }
+
+    .header {
+      background: #454545;
+      padding: .7em 1em;
+      border-radius: 3px;
+      color: #f7f7f7;
+      cursor: pointer;
+
+      .method {
+        display: inline-block;
+        padding: .2em .4em .15em;
+        background: green;
+        border-radius: 3px;
+        color: #f7f7f7;
+        font-size: .9em;
+        margin-right: 1em;
+        vertical-align: middle;
+      }
+
+      .req-route {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .time {
+        display: inline-block;
+        vertical-align: middle;
+        float: right;
+        font-size: .9em;
+        margin-top: .2em;
+      }
+
+      .arrow {
+        transform: rotate(0deg);
+        transition: all .3s ease-in-out;
+        float: right;
+        margin-left: 1em;
+      }
+    }
+
+    .body {
+      padding: 0 1em;
+      max-height: 0;
+      overflow: hidden;
+      transition: all .5s ease-in-out;
+      background: #fafafa;
+
+      .code-block {
+        background: #fff3c2;
+        padding: 1em;
+        border-radius: 5px;
+        margin-top: 1em;
+        overflow-x: scroll;
+      }
+
+      h2 {
+        font-size: 1em;
+        margin: 0 0 1em;
+      }
+    }
+
+    .open + .body {
+      padding: 0 1em 1em;
+      max-height: 40em;
+      overflow: scroll;
+      transition: all .5s ease-in-out;
+    }
+
+    .open .arrow {
+      transform: rotate(180deg);
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  .filter-container {
+    vertical-align: top;
+    display: inline-block;
+    width: 30%;
+    
+    h3 {
+      text-transform: uppercase;
+      font-size: 1em;
+      font-weight: bold;
+      border-bottom: 2px solid #666;
+      margin-bottom: 2em;
+    }
+    
+    .button {
+      margin-top: 2em;
+      border-radius: 3px;
+    }
+  }
+}
