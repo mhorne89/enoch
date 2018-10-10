@@ -5,6 +5,7 @@ const moment = require('moment');
 const cron = require('node-cron');
 const path = require('path');
 const express = require('express');
+const isJSON = require('is-json');
 
 
 /****************************************************************************
@@ -20,7 +21,9 @@ function init() {
 
     fs.readdir('./logs/', (err, files) => {
       files.forEach(file => {
-        fs.readFile(`./logs/${ file }`, 'utf-8', (err, log) => global.enoch_logs.push(JSON.parse(log)));
+        fs.readFile(`./logs/${ file }`, 'utf-8', (err, log) => {
+          if (isJSON(log)) global.enoch_logs.push(JSON.parse(log));
+        });
       });
     });
   }
@@ -42,7 +45,7 @@ function store(req, res, next) {
     request_headers: req.headers,
     api_endpoint: req.baseUrl,
     response_body: res.body,
-    response_status: res.status,
+    response_status: res.statusCode,
     timestamp: moment().format('x')
   };
   

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgPipesModule } from 'ngx-pipes';
 
-import { OverviewComponent } from '../components/overview.component';
+import { LogsComponent } from '../components/logs.component';
 
 import {
   ParabolTextModule,
@@ -10,13 +10,13 @@ import {
 } from 'parabol-material';
 
 @NgModule({
-  declarations: [ OverviewComponent ],
+  declarations: [ LogsComponent ],
   imports: [
     BrowserModule,
     NgPipesModule,
     ParabolTextModule,
     ParabolPendingModule
   ],
-  bootstrap: [ OverviewComponent ]
+  bootstrap: [ LogsComponent ]
 })
-export class OverviewModule { }
+export class LogsModule { }

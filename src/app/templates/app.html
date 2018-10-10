@@ -1,17 +1,17 @@
 <div id="app">
-  <conichi-sidebar>
-    <conichi-sidebar-menu>
-      <div class="menu-heading">
-        <img src="/assets/svgs/eye.svg">
-        <h2>Enoch</h2>
-      </div>
+  <parabol-sidebar>      
+    <parabol-menu-item routerLink="/enoch/overview">
+      <fa name="eye"></fa>
+      <a>Overview</a>
+    </parabol-menu-item>
+    
+    <parabol-menu-item routerLink="/enoch/logs">
+      <fa name="bars"></fa>
+      <a>Logs</a>
+    </parabol-menu-item>
+  </parabol-sidebar>
 
-      <conichi-sidebar-header>Dashboard</conichi-sidebar-header>
-      <a routerLink="/enoch/overview">Overview</a>
-    </conichi-sidebar-menu>
-  </conichi-sidebar>
-
-  <conichi-sidebar-content>
+  <parabol-sidebar-content>
     <router-outlet autoscroll="false"></router-outlet>
-  </conichi-sidebar-content>
+  </parabol-sidebar-content>
 </div>

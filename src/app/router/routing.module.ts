@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import custom components
 import { OverviewComponent } from '../components/overview.component';
+import { LogsComponent } from '../components/logs.component';
 
 // Define routes
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'overview',
         component: OverviewComponent
+      },
+      {
+        path: 'logs',
+        component: LogsComponent
       }
     ]
   }
