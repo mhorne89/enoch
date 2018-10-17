@@ -1,6 +1,6 @@
 #logs {
   h1 { margin-bottom: 2em }
-  
+
   .list-container {
     display: inline-block;
     vertical-align: top;
@@ -8,24 +8,22 @@
     margin-right: 5%;
 
     .box {
-      box-shadow: 0 2px 4px rgba(50, 50, 50, 0.1), 0 3px 6px rgba(100, 100, 100, 0.2);
-      margin-bottom: .5em;
-      border-radius: 3px;
-    }
-
-    .header {
-      background: #454545;
-      padding: .7em 1em;
-      border-radius: 3px;
-      color: #f7f7f7;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
+      border: 1px solid darken($colorBackground, 10%);
+      background: lighten($colorBackground, 5%);
+      padding: .8em 1em;
+      color: $colorDarkGrey;
       cursor: pointer;
+      margin-top: .3em;
+
+      &:last-child { border: none }
 
       .method {
         display: inline-block;
         padding: .2em .4em .15em;
         background: green;
         border-radius: 3px;
-        color: #f7f7f7;
+        color: $colorOffWhite;
         font-size: .9em;
         margin-right: 1em;
         vertical-align: middle;
@@ -43,46 +41,75 @@
         font-size: .9em;
         margin-top: .2em;
       }
+    }
+  }
 
-      .arrow {
-        transform: rotate(0deg);
-        transition: all .3s ease-in-out;
-        float: right;
-        margin-left: 1em;
-      }
+  .display {
+    @include position(absolute, 0 -30% 0 null);
+    @include transition(right .2s ease-in-out);
+    @include size(30% 100%);
+    background: $colorBackground;
+    border-left: 2px solid $colorSecondaryCorp;
+    -webkit-box-shadow: -20px 0px 10em 10em rgba(200, 200, 200, .1);
+    -moz-box-shadow: -20px 0px 10em 10em rgba(200, 200, 200, .1);
+    box-shadow: -20px 0px 10em 10em rgba(200, 200, 200, .1);
+    padding: 1.5em 2em;
+    opacity: 0;
+
+    &.open {
+      @include position(absolute, 0 0 0 null);
+      @include transition(right .2s ease-in-out);
+      opacity: 1;
     }
 
-    .body {
-      padding: 0 1em;
-      max-height: 0;
-      overflow: hidden;
-      transition: all .5s ease-in-out;
-      background: #fafafa;
+    .close {
+      @include position(absolute, .5em null null -1.5em);
+      font-size: 1.5em;
+      cursor: pointer;
+    }
 
-      .code-block {
-        background: #fff3c2;
-        padding: 1em;
-        border-radius: 5px;
-        margin-top: 1em;
-        overflow-x: scroll;
-      }
+    .endpoint {
+      display: inline-block;
+      float: left;
+      vertical-align: middle;
+      margin-bottom: 2em;
 
       h2 {
+        font-size: 1.2em;
+        font-weight: 500;
+        margin-bottom: .5em;
+      }
+      
+      p {
         font-size: 1em;
-        margin: 0 0 1em;
+        margin: 0;
       }
     }
 
-    .open + .body {
-      padding: 0 1em 1em;
-      max-height: 40em;
-      overflow: scroll;
-      transition: all .5s ease-in-out;
+    .response-code {
+      display: inline-block;
+      padding: .3em .8em;
+      float: right;
+      background: green;
+      border-radius: 3px;
+      color: $colorOffWhite;
+      font-size: 1em;
+      vertical-align: middle;
     }
 
-    .open .arrow {
-      transform: rotate(180deg);
-      transition: all .3s ease-in-out;
+    .code-block {
+      background: $colorLightGrey;
+      padding: 1em;
+      border-radius: 5px;
+      margin-top: 1em;
+      overflow-x: scroll;
+    }
+
+    h2 {
+      color: $colorSecondaryCorp;
+      font-weight: 500;
+      font-size: 1em;
+      margin: 0 0 1em;
     }
   }
 
@@ -90,7 +117,7 @@
     vertical-align: top;
     display: inline-block;
     width: 30%;
-    
+
     h3 {
       text-transform: uppercase;
       font-size: 1em;
@@ -98,7 +125,7 @@
       border-bottom: 2px solid #666;
       margin-bottom: 2em;
     }
-    
+
     .button {
       margin-top: 2em;
       border-radius: 3px;

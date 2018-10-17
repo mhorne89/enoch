@@ -15,16 +15,18 @@ const isJSON = require('is-json');
 *****************************************************************************/
 function init() {
   fs.access('./logs', (err) => (err) ? fs.mkdirSync('./logs') : null);
-  
+
   if (!global.enoch_logs) {
     global.enoch_logs = [];
 
     fs.readdir('./logs/', (err, files) => {
-      files.forEach(file => {
-        fs.readFile(`./logs/${ file }`, 'utf-8', (err, log) => {
-          if (isJSON(log)) global.enoch_logs.push(JSON.parse(log));
+      if (files) {
+        files.forEach(file => {
+          fs.readFile(`./logs/${ file }`, 'utf-8', (err, log) => {
+            if (isJSON(log)) global.enoch_logs.push(JSON.parse(log));
+          });
         });
-      });
+      }
     });
   }
 }
@@ -48,7 +50,7 @@ function store(req, res, next) {
     response_status: res.statusCode,
     timestamp: moment().format('x')
   };
-  
+
   global.enoch_logs.push(log);
 
   fs.writeFile(`./logs/${ moment().format('x') }.json`, JSON.stringify(log), (err) => (err) ? console.log(err) : next());
@@ -91,7 +93,7 @@ function serve(app) {
   app.get('/enoch-logs', (req, res) => {
     res.status(200).send(global.enoch_logs);
   });
-  
+
   app.get(['/enoch', '/enoch/**'], (req, res) => {
     app.use(express.static(__dirname + '/dist'));
     res.sendFile(path.join(__dirname, 'dist/index.html'));
