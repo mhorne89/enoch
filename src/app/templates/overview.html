@@ -1,10 +1,31 @@
 <div id="overview">
   <div class="screen-container">
     <h1>Overview</h1>
-    
+
     <div class="panel">
-      <div>Logs captured</div>
-      <p>{{ logs?.length }}</p>
+      <div class="title">Logs captured</div>
+      <div class="body"><p>{{ logs?.length }}</p></div>
+    </div>
+
+    <div class="panel">
+      <div class="title">Errors</div>
+      <div class="body"><p>{{ errors }}</p></div>
+    </div>
+
+    <div class="large-panel">
+      <div class="title">Status overview</div>
+
+      <div class="body">
+        <div class="row" *ngFor="let code of status | keyvalue">
+          <div class="bar-container">
+            <div class="bar" [style.width]="((code.value.length / logs.length) * 100) + '%'">
+              {{ code.value.length }} ({{ (code.value.length / logs.length) * 100 }}%)
+            </div>
+          </div>
+
+          <div class="status">{{ code.key }}</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,22 +1,54 @@
 #overview {
   h1 { margin-bottom: 2em }
-  
-  .panel {
+
+  .panel, .large-panel {
     @include span-columns(3 of 12);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
-    
-    div {
+    min-height: 14em;
+
+    .title {
       background: $colorMediumGrey;
       color: $colorOffWhite;
       text-align: center;
       text-transform: uppercase;
       padding: 2em 1em;
     }
-    
-    p {
+
+    .body {
       text-align: center;
       background: $colorOffWhite;
-      font-size: 2em;
+      padding: 1em;
+
+      p { font-size: 2em; }
+    }
+  }
+
+  .large-panel { @include span-columns(6 of 12) }
+
+  .row {
+    margin-bottom: .3em;
+    
+    .bar-container {
+      width: calc(100% - 3em);
+      display: inline-block;
+      vertical-align: middle;
+
+      .bar {
+        background: green;
+        text-align: left;
+        color: $colorOffWhite;
+        border-radius: 3px;
+        padding: .3em .5em;
+        font-size: .9em;
+      }
+    }
+
+    .status {
+      width: 3em;
+      display: inline-block;
+      vertical-align: middle;
+      float: right;
+      line-height: 1.8em;
     }
   }
 }
