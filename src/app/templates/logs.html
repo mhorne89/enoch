@@ -3,14 +3,14 @@
     <h1>Logs</h1>
 
     <div class="list-container">
-      <parabol-text placeholder="Filter" [(model)]="filter" (keyup)="filterList(filter)"></parabol-text>
+      <parabol-text class="filter" placeholder="Filter" [(model)]="filter" (keyup)="filterList(filter)"></parabol-text>
 
       <parabol-pending [pending]="!logs"></parabol-pending>
 
       <div class="box"
            *ngFor="let log of logs | orderBy: '-timestamp' | filterBy: ['api_endpoint', 'request_method', 'response_status']: filter"
            (click)="showBody(log)">
-        <div class="method">{{ log?.request_method }} <span *ngIf="log?.response_status">{{ log?.response_status }}</span></div>
+        <div class="method" [class.warn]="log?.response_status.toString().charAt(0) !== '2'">{{ log?.request_method }}</div>
         <div class="req-route">{{ log?.request_url }}{{ log?.api_endpoint }}</div>
         <div class="time">{{ log?.timestamp | from }}</div>
       </div>
@@ -23,7 +23,10 @@
         <h2>{{ selectedLog?.request_method }} {{ selectedLog?.request_url }}{{ selectedLog?.api_endpoint }}</h2>
         <p>{{ selectedLog?.timestamp | date: 'medium' }}</p>
       </div>
-      <span class="response-code">{{ selectedLog?.response_status }}</span>
+      
+      <span class="response-code" [class.warn]="selectedLog?.response_status.toString().charAt(0) !== '2'">
+        {{ selectedLog?.response_status }}
+      </span>
 
       <div class="clear"></div>
 

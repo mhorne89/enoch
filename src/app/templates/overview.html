@@ -18,7 +18,9 @@
       <div class="body">
         <div class="row" *ngFor="let code of status | keyvalue">
           <div class="bar-container">
-            <div class="bar" [style.width]="((code.value.length / logs.length) * 100) + '%'">
+            <div class="bar"
+             [style.width]="((code.value.length / logs.length) * 100) + '%'"
+             [class.warn]="code.value[0].response_status.toString().charAt(0) !== '2'">
               {{ code.value.length }} ({{ (code.value.length / logs.length) * 100 }}%)
             </div>
           </div>

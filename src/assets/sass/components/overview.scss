@@ -5,9 +5,10 @@
     @include span-columns(3 of 12);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
     min-height: 14em;
+    background: white;
 
     .title {
-      background: $colorMediumGrey;
+      background: $colorSecondaryCorp;
       color: $colorOffWhite;
       text-align: center;
       text-transform: uppercase;
@@ -34,12 +35,14 @@
       vertical-align: middle;
 
       .bar {
-        background: green;
+        background: $colorSuccessGreen;
         text-align: left;
         color: $colorOffWhite;
         border-radius: 3px;
         padding: .3em .5em;
         font-size: .9em;
+        
+        &.warn { background: $colorErrorRed }
       }
     }
 
