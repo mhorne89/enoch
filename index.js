@@ -6,6 +6,7 @@ const cron = require('node-cron');
 const path = require('path');
 const express = require('express');
 const isJSON = require('is-json');
+const expressip = require('express-ip');
 
 
 /****************************************************************************
@@ -40,20 +41,35 @@ function init() {
 function store(req, res, next) {
   init();
 
+  const ip = (req.headers['x-forwarded-for'] || '').replace(/:\d+$/, '') || req.connection.remoteAddress;
+
   const log = {
-    request_url: req.hostname,
+    request_url: `${ req.hostname }${ req.url }`,
     request_body: req.body,
     request_method: req.method,
     request_headers: req.headers,
     api_endpoint: req.baseUrl,
-    response_body: res.body,
-    response_status: res.statusCode,
+    location: expressip().getIpInfo(ip) || {},
     timestamp: moment().format('x')
   };
 
-  global.enoch_logs.push(log);
+  const send = res.send;
 
-  fs.writeFile(`./logs/${ moment().format('x') }.json`, JSON.stringify(log), (err) => (err) ? console.log(err) : next());
+  res.send = function(data) {
+    try { log.response_body = JSON.parse(data); }
+    catch(e) { log.response_body = data; }
+
+    send.apply(this, arguments);
+    return this;
+  };
+
+  res.on('finish', () => {
+    log.response_status = res.statusCode;
+    global.enoch_logs.push(log);
+    fs.writeFile(`./logs/${ moment().format('x') }.json`, log, (err) => (err) ? console.log(err) : null);
+  });
+
+  next();
 }
 
 
@@ -90,15 +106,15 @@ function clean(cron_schedule, removal_time_in_days) {
 * view a UI that displays all your API logs.
 *****************************************************************************/
 function serve(app) {
-  app.get('/enoch-logs', (req, res) => {
-    res.status(200).send(global.enoch_logs);
-  });
+  app.get('/enoch-logs', (req, res) => res.status(200).send(global.enoch_logs));
 
   app.get(['/enoch', '/enoch/**'], (req, res) => {
     app.use(express.static(__dirname + '/dist'));
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
 }
+
+
 
 module.exports = {
   store: store,

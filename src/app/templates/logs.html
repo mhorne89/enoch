@@ -16,9 +16,7 @@
       </div>
     </div>
 
-    <div class="display" [class.open]="selectedLog" #displayElement>
-      <fa name="times" class="close" (click)="selectedLog = null"></fa>
-
+    <div class="display" *ngIf="selectedLog">
       <div class="endpoint">
         <h2>{{ selectedLog?.request_method }} {{ selectedLog?.request_url }}{{ selectedLog?.api_endpoint }}</h2>
         <p>{{ selectedLog?.timestamp | date: 'medium' }}</p>

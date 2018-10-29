@@ -1,7 +1,11 @@
 <div id="overview">
   <div class="screen-container">
     <h1>Overview</h1>
-
+    
+    <div id="map"></div>
+    
+    <parabol-pending [pending]="!logs" [class.hidden]="logs"></parabol-pending>
+    
     <div class="panel">
       <div class="title">Logs captured</div>
       <div class="body"><p>{{ logs?.length }}</p></div>
@@ -21,7 +25,7 @@
             <div class="bar"
              [style.width]="((code.value.length / logs.length) * 100) + '%'"
              [class.warn]="code.value[0].response_status.toString().charAt(0) !== '2'">
-              {{ code.value.length }} ({{ (code.value.length / logs.length) * 100 }}%)
+              <!--{{ code.value.length }} ({{ (code.value.length / logs.length) * 100 }}%)-->
             </div>
           </div>
 

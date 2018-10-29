@@ -1,11 +1,22 @@
 #overview {
   h1 { margin-bottom: 2em }
+  
+  #map {
+    margin-bottom: 2em;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
+  }
+  
+  parabol-pending {
+    display: block;
+    margin: 23em 0;
+    
+    &.hidden { display: none }
+  }
 
   .panel, .large-panel {
     @include span-columns(3 of 12);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
     min-height: 14em;
-    background: white;
 
     .title {
       background: $colorSecondaryCorp;
@@ -17,7 +28,7 @@
 
     .body {
       text-align: center;
-      background: $colorOffWhite;
+      background: white;
       padding: 1em;
 
       p { font-size: 2em; }
@@ -38,9 +49,9 @@
         background: $colorSuccessGreen;
         text-align: left;
         color: $colorOffWhite;
-        border-radius: 3px;
         padding: .3em .5em;
         font-size: .9em;
+        height: 1.8em;
         
         &.warn { background: $colorErrorRed }
       }
@@ -52,6 +63,7 @@
       vertical-align: middle;
       float: right;
       line-height: 1.8em;
+      font-weight: bold;
     }
   }
 }

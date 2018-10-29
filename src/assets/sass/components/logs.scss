@@ -2,10 +2,7 @@
   h1 { margin-bottom: 2em }
 
   .list-container {
-    display: inline-block;
-    vertical-align: top;
-    width: 65%;
-    margin-right: 5%;
+    width: 60%;
     
     .filter { margin-bottom: 1em }
 
@@ -29,6 +26,7 @@
         font-size: .9em;
         margin-right: 1em;
         vertical-align: middle;
+        font-weight: bold;
         
         &.warn { background: $colorErrorRed }
       }
@@ -49,30 +47,13 @@
   }
 
   .display {
-    @include position(fixed, 0 -30% 0 null);
-    @include transition(right .2s ease-in-out);
-    @include size(30% 100%);
-    background: $colorBackground;
-    border-left: 2px solid $colorSecondaryCorp;
-    -webkit-box-shadow: -20px 0px 10em 10em rgba(200, 200, 200, .1);
-    -moz-box-shadow: -20px 0px 10em 10em rgba(200, 200, 200, .1);
-    box-shadow: -20px 0px 10em 10em rgba(200, 200, 200, .1);
+    @include position(fixed, 15em 1em 1em null);
+    @include size(35% 100%);
+    background: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, .4) 0px 1px 3px 0px;
     padding: 1em;
-    opacity: 0;
     overflow-y: scroll;
-
-    &.open {
-      @include position(fixed, 0 0 0 null);
-      @include transition(right .2s ease-in-out);
-      opacity: 1;
-    }
-
-    .close {
-      @include position(absolute, .5em null null -1.5em);
-      font-size: 1.5em;
-      color: $colorSecondaryCorp;
-      cursor: pointer;
-    }
 
     .endpoint {
       display: inline-block;
@@ -100,6 +81,7 @@
       border-radius: 3px;
       color: $colorOffWhite;
       font-size: 1em;
+      font-weight: bold;
       vertical-align: middle;
       
       &.warn { background: $colorErrorRed }
