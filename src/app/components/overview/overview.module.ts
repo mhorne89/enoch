@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgPipesModule } from 'ngx-pipes';
 
-import { KeysPipe } from '../pipes/keys.pipe';
+import { PipesModule } from '../../pipes/pipes.module';
 
-import { OverviewComponent } from '../components/overview.component';
+import { OverviewComponent } from './overview.component';
 
 import {
   ParabolTextModule,
@@ -12,15 +12,13 @@ import {
 } from 'parabol-material';
 
 @NgModule({
-  declarations: [
-    OverviewComponent,
-    KeysPipe
-  ],
+  declarations: [ OverviewComponent ],
   imports: [
     BrowserModule,
     NgPipesModule,
     ParabolTextModule,
-    ParabolPendingModule
+    ParabolPendingModule,
+    PipesModule
   ],
   bootstrap: [ OverviewComponent ]
 })

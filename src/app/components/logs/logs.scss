@@ -48,7 +48,7 @@
 
   .display {
     @include position(fixed, 15em 1em 1em null);
-    @include size(35% 100%);
+    @include size(35% auto);
     background: white;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, .4) 0px 1px 3px 0px;

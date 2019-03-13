@@ -1,0 +1,63 @@
+<div id="reports">
+  <div class="screen-container">
+    <h1>Reports</h1>
+
+    <div class="list-container">
+      <parabol-text class="filter" placeholder="Filter" [(model)]="filter" (keyup)="filterList(filter)"></parabol-text>
+
+      <parabol-pending [pending]="!reports"></parabol-pending>
+
+      <div class="box"
+           *ngFor="let report of reports | orderBy: '-timestamp' | filterBy: ['title']: filter"
+           (click)="showBody(report)">
+        <div class="title">{{ report?.title }}</div>
+        <div class="time">{{ report?.timestamp | from }}</div>
+      </div>
+    </div>
+
+    <div class="display" *ngIf="selectedReport">
+      <div class="title">
+        <h2>{{ selectedReport?.title }}</h2>
+        <p>{{ selectedReport?.timestamp | date: 'medium' }}</p>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="code-block" *ngIf="selectedReport?.localstorage">
+        <h2>Description</h2>
+        <p>{{ selectedReport.message }}</p>
+      </div>
+
+      <div class="code-block" *ngIf="selectedReport?.localstorage">
+        <h2>LocalStorage</h2>
+        <ngx-json-viewer [json]="selectedReport.localstorage" [expanded]="false"></ngx-json-viewer>
+      </div>
+
+      <div class="code-block" *ngIf="selectedReport?.cookies">
+        <h2>Cookies</h2>
+        <ngx-json-viewer [json]="selectedReport.cookies" [expanded]="false"></ngx-json-viewer>
+      </div>
+
+      <div class="code-block" *ngIf="selectedReport?.console">
+        <h2>Console</h2>
+
+        <div class="code-block">
+          <div class="log" *ngFor="let log of selectedReport?.console">
+            <ngx-json-viewer *ngIf="checkType(log)" [json]="log" [expanded]="false"></ngx-json-viewer>
+            <p *ngIf="!checkType(log)">{{ log }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block" *ngIf="selectedReport?.client">
+        <h2>Client</h2>
+        <ngx-json-viewer [json]="selectedReport.client" [expanded]="false"></ngx-json-viewer>
+      </div>
+
+      <div class="code-block" *ngIf="selectedReport?.data">
+        <h2>Custom data</h2>
+        <ngx-json-viewer [json]="selectedReport.data" [expanded]="false"></ngx-json-viewer>
+      </div>
+    </div>
+  </div>
+</div>

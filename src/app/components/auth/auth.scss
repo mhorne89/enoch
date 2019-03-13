@@ -1,0 +1,13 @@
+#auth {
+  .login-container {
+    @include size(30em auto);
+    margin: 20em auto 0;
+    background: $colorOffWhite;
+    border: 1px solid $colorLightGrey;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 7px -1px;
+    border-radius: 5px;
+    padding: 2em;
+
+    h2 { margin-bottom: 2em }
+  }
+}

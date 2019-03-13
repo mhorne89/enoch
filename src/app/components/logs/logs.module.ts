@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgPipesModule } from 'ngx-pipes';
 
-import { TimeFromPipe } from '../pipes/from.pipe';
+import { LogsComponent } from './logs.component';
 
-import { LogsComponent } from '../components/logs.component';
+import { PipesModule } from '../../pipes/pipes.module';
 
 import {
   ParabolTextModule,
@@ -13,16 +13,14 @@ import {
 } from 'parabol-material';
 
 @NgModule({
-  declarations: [
-    LogsComponent,
-    TimeFromPipe
-  ],
+  declarations: [ LogsComponent ],
   imports: [
     BrowserModule,
     AngularFontAwesomeModule,
     NgPipesModule,
     ParabolTextModule,
-    ParabolPendingModule
+    ParabolPendingModule,
+    PipesModule
   ],
   bootstrap: [ LogsComponent ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

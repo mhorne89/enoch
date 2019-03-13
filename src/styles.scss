@@ -1,5 +1,7 @@
 @import './assets/sass/global-stylesheets/globals.scss';
 
-@import './assets/sass/components/app.scss';
-@import './assets/sass/components/overview.scss';
-@import './assets/sass/components/logs.scss';
+@import './src/app/components/app/app.scss';
+@import './src/app/components/auth/auth.scss';
+@import './src/app/components/overview/overview.scss';
+@import './src/app/components/logs/logs.scss';
+@import './src/app/components/reports/reports.scss';

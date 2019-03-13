@@ -1,0 +1,109 @@
+#reports {
+  h1 { margin-bottom: 2em }
+
+  .list-container {
+    width: 60%;
+    
+    .filter { margin-bottom: 1em }
+
+    .box {
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px 0px;
+      border: 1px solid darken($colorBackground, 10%);
+      background: lighten($colorBackground, 5%);
+      padding: .8em 1em;
+      color: $colorDarkGrey;
+      cursor: pointer;
+      margin-top: .3em;
+
+      &:last-child { border: none }
+
+      .title {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .time {
+        display: inline-block;
+        vertical-align: middle;
+        float: right;
+        font-size: .9em;
+        margin-top: .2em;
+      }
+    }
+  }
+
+  .display {
+    @include position(fixed, 0 0 0 null);
+    @include size(35% auto);
+    background: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, .4) 0px 1px 3px 0px;
+    padding: 1em;
+    overflow-y: scroll;
+
+    .title {
+      display: inline-block;
+      float: left;
+      vertical-align: middle;
+      margin-bottom: 2em;
+
+      h2 {
+        font-size: 1.2em;
+        font-weight: 500;
+        margin-bottom: .5em;
+      }
+      
+      p {
+        font-size: 1em;
+        margin: 0;
+      }
+    }
+
+    .code-block {
+      background: $colorLightGrey;
+      padding: 1em;
+      border-radius: 5px;
+      margin-top: 1em;
+      overflow-x: scroll;
+      
+      .log {
+        margin-bottom: 1em;
+        
+        .segment { margin: 0 }
+        
+        p {
+          font-weight: 500;
+          font-family: monospace;
+          font-size: .95em;
+          color: #4E187C;
+        }
+      }
+    }
+
+    h2 {
+      color: $colorSecondaryCorp;
+      font-weight: 500;
+      font-size: 1em;
+      margin: 0 0 1em;
+    }
+  }
+
+  .filter-container {
+    vertical-align: top;
+    display: inline-block;
+    width: 30%;
+
+    h3 {
+      text-transform: uppercase;
+      font-size: 1em;
+      font-weight: bold;
+      border-bottom: 2px solid #666;
+      margin-bottom: 2em;
+    }
+
+    .button {
+      margin-top: 2em;
+      border-radius: 3px;
+    }
+  }
+}

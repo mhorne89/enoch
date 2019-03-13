@@ -1,0 +1,12 @@
+<parabol-notification [data]="notification"></parabol-notification>
+
+<div id="auth">
+  <div class="login-container">
+    <h2>Authenticate to proceed</h2>
+
+    <form (submit)="authenticate($event)">
+      <parabol-text placeholder="Password" [(model)]="password" type="password"></parabol-text>
+      <input type="submit" class="button" value="Authenticate">
+    </form>
+  </div>
+</div>

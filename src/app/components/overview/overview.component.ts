@@ -1,27 +1,38 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { groupBy, countBy, toPairs } from 'lodash';
 
 
 @Component({
   selector: 'app-overview',
-  templateUrl: '../templates/overview.html'
+  templateUrl: 'overview.html'
 })
 export class OverviewComponent {
   public logs: Array<Object>;
   public status: Object;
   public errors = 0;
 
-  constructor(private http: HttpClient) {
-    const location = window.location.origin.replace('4000', '8085'); 
+  constructor(private http: HttpClient, private router: Router) {
+    const location = window.location.origin.replace('4000', '8081');
+    
+    const headers = {
+      headers: new HttpHeaders({
+        'uuid': JSON.parse(sessionStorage.getItem('revelation-session')).uuid
+      })
+    };
 
-    this.http.get(`${ location }/enoch-logs`).subscribe(
+    this.http.get(`${ location }/revelation/logs`, headers).subscribe(
       (logs: Array<Object>) => {
         this.logs = logs;
         this.groupByStatusCodes();
         this.createMap();
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        /*sessionStorage.removeItem('revelation-session');
+        this.router.navigate(['/revelation/auth']);*/
+      }
     );
   }
 
@@ -35,13 +46,14 @@ export class OverviewComponent {
 
   private createMap() {
     const countByCounty = toPairs(countBy(this.logs, (log) => {
-      if (log['location'] && log['location']['country']) return log['location']['country'];
+      if (log.location && log.location.country) return log.location.country;
+      else console.log('Error getting location: ', log.location);
     }));
 
     const mapData = [];
 
     countByCounty.forEach((country) => {
-      mapData.push({ code: country[0], value: country[1] });
+      mapData.push({ code: country, value: country });
     });
 
     // @ts-ignore
